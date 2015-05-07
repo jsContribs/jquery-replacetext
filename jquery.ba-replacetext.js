@@ -103,9 +103,9 @@
             // Only replace text if the new value is actually different!
             if ( new_val !== val ) {
               
-              if ( !text_only && /</.test( new_val ) ) {
-                // The new value contains HTML, set it in a slower but far more
-                // robust way.
+              if ( !text_only && ( /</.test( new_val ) || /&[^;]+;/.test( new_val ) ) ) {
+                // The new value contains HTML or an HTML entity, so set it in a
+                // slower but far more robust way.
                 $(node).before( new_val );
                 
                 // Don't remove the node yet, or the loop will lose its place.
